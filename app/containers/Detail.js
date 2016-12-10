@@ -5,6 +5,7 @@ import {
   ListView,
   TextInput,
   StyleSheet,
+  ActivityIndicator,
   TouchableOpacity,
 } from 'react-native'
 import { connect } from 'react-redux'
@@ -17,7 +18,7 @@ class Detail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
+      name: '',
       stopPointId: null,
       arrivals: []
     }
@@ -25,12 +26,11 @@ class Detail extends Component {
   }
 
   componentWillMount() {
-    const { stopPointId, title } = this.props
-    console.log(stopPointId)
+    const { stopPointId, name } = this.props
     if (stopPointId) {
       this.props.dispatch(Actions.onDetail(stopPointId)) 
     }
-    this.setState({stopPointId, title})
+    this.setState({stopPointId, name})
   }
 
   componentWillReceiveProps(props) {
@@ -40,7 +40,7 @@ class Detail extends Component {
 
   renderRow(item) {
     const { destinationName, expectedArrival, timeToStation, lineId } = item
-    const timeArrival = Moment(expectedArrival).format('h:m')
+    const timeArrival = Moment(expectedArrival).format('HH:mm')
     const duration = Moment.duration(timeToStation, 'seconds').get('minutes')
     return (
       <View style={styles.item}>
@@ -60,7 +60,7 @@ class Detail extends Component {
   }
 
   render() {
-    const { arrivals, title } = this.state
+    const { arrivals, name } = this.state
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -68,13 +68,13 @@ class Detail extends Component {
             style={{flexDirection: 'row', alignItems: 'center', padding: 5}}
           >
             <Icon.Button
-              color='#000'
+              color='#f7b732'
               onPress={() => this.props.navigator.pop()}
               backgroundColor='transparent'
               name="angle-left" size={30} />
-            <Text style={{fontSize: 20, flex: 1, textAlign: 'center'}}>{title}</Text>
+            <Text style={{fontSize: 20, flex: 1, textAlign: 'center', color: '#fc4919'}}>{name}</Text>
             <Icon.Button
-              color='#000'
+              color='#f7b732'
               onPress={() => this.props.navigator.resetTo({name: 'search'})}
               backgroundColor='transparent'
               name="home" size={30} />
@@ -90,7 +90,12 @@ class Detail extends Component {
             renderRow={this.renderRow}
           />
           :
-          <Text style={styles.norecord}> No Data </Text>
+          <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
+            <ActivityIndicator
+                animating={true}
+                size="large"
+            />
+          </View>
         }
         </View>
       </View>
@@ -121,15 +126,19 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
   busNumber: {
-    paddingLeft: 10,
+    width: 60,
+    paddingLeft: 5,
     paddingRight: 10,
     fontSize: 24,
+    textAlign: 'right',
     color: '#fc4919'
   },
   itemTime: {
-    paddingLeft:  10,
-    paddingRight: 10,
+    width: 70,
+    paddingLeft:  5,
+    paddingRight: 5,
     fontSize: 18,
+    textAlign: 'right',
     color: '#4ebeae'
   },
   itemContent: {

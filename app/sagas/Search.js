@@ -15,6 +15,6 @@ function* getSearch(busNumber) {
   const response = yield call(Api.get, `/line/${busNumber}/route/sequence/outbound`)
   const { data } = response
   if (data) {
-    yield put(Actions.onResult(data.stations))
+    yield put(Actions.onResult(data))
   }
 }

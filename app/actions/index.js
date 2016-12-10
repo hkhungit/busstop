@@ -4,8 +4,8 @@ const onSearch = (busNumber) => (
   {type: Types.ON_SEARCH, busNumber}
 )
 
-const onResult = (stations) => (
-  {type: Types.ON_RESULT, stations}
+const onResult = (sequences) => (
+  {type: Types.ON_RESULT, sequences}
 )
 
 const onDetail = (stopPointId) => (

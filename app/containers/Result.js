@@ -5,6 +5,7 @@ import {
   ListView,
   TextInput,
   StyleSheet,
+  ActivityIndicator,
   TouchableOpacity,
 } from 'react-native'
 import { connect }      from 'react-redux'
@@ -41,11 +42,11 @@ class Result extends Component {
   }
 
   renderRow(item) {
-    const { name, id } = item
+    const { name, stopPointId } = item
     return (
       <TouchableOpacity
         style={styles.item}
-        onPress={() => Router.redirect(this, 'detail', {stopPointId: id, title: name})}
+        onPress={() => Router.redirect(this, 'detail', {stopPointId, title: name})}
       >
         <Text>{name}</Text>
       </TouchableOpacity>
@@ -61,7 +62,7 @@ class Result extends Component {
             style={{flexDirection: 'row', alignItems: 'center', padding: 5}}
           >
             <Icon.Button
-              color='#000'
+              color='#f7b732'
               onPress={() => this.props.navigator.pop()}
               backgroundColor='transparent'
               name="angle-left" size={30} />
@@ -81,7 +82,12 @@ class Result extends Component {
               renderRow={this.renderRow}
             />
             :
-            <Text style={styles.norecord}> No Data </Text>
+            <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
+              <ActivityIndicator
+                  animating={true}
+                  size="large"
+              />
+            </View>
           }
         </View>
       </View>

@@ -12,7 +12,7 @@ export default {
       case 'result':
         return <Result busNumber={route.busNumber} navigator={navigator}/>
       case 'detail':
-        return <Detail stopPointId={route.stopPointId} title={route.title} navigator={navigator}/>
+        return <Detail stopPointId={route.stopPointId} name={route.title} navigator={navigator}/>
       default:
         return <Search navigator={navigator}/>
     }
