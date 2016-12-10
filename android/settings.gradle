@@ -1,0 +1,3 @@
+rootProject.name = 'BusStop'
+
+include ':app'
