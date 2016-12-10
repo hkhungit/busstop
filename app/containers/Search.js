@@ -13,18 +13,17 @@ export default class Search extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      number: ''
+      number: null
     }
     this.onSearch = this.onSearch.bind(this)
   }
 
   onSearch() {
-    const  { number } =  this.state
-    if (number == '') {
+    const { number } =  this.state
+    if (!number) {
       return null
     }
-    
-    Router.redirect(this, 'result')
+    Router.redirect(this, 'result', {busNumber: number})
   }
 
   render() {
@@ -37,7 +36,7 @@ export default class Search extends Component {
             value={number}
             keyboardType='numeric'
             style={styles.textInput}
-            onChange={(number) => this.setState({number})}
+            onChangeText ={(number) => this.setState({number})}
           />
         </View>
         <TouchableOpacity

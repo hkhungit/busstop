@@ -1,5 +1,8 @@
 import { createTypes } from 'reduxsauce'
 
 export default createTypes(`
-  SEARCH_RESULT
+  ON_SEARCH
+  ON_RESULT
+  ON_DETAIL
+  ON_ARRIVAL
 `)

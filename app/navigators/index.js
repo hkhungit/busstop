@@ -8,18 +8,17 @@ import {
 
 export default {
   renderScene(route, navigator) {
-    console.log(route)
     switch(route.name) {
       case 'result':
-        return <Result busNumber={route.number} navigator={navigator}/>
+        return <Result busNumber={route.busNumber} navigator={navigator}/>
       case 'detail':
-        return <Detail busNumber={route.number} stopPointId={route.stopPointId} navigator={navigator}/>
+        return <Detail stopPointId={route.stopPointId} title={route.title} navigator={navigator}/>
       default:
         return <Search navigator={navigator}/>
     }
   },
 
-  redirect(classObj, route, params={}){
+  redirect(classObj, route, params={}) {
     classObj.props.navigator.push({
       name: route,
       ...params
